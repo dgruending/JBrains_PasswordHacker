@@ -25,6 +25,23 @@ def stage1():
     response = connection.get_response((args.ip, args.port), args.message)
     print(response)
 
+# Stage 2/5: Simple brute force
+# Input [command line]:
+#   1. IP address
+#   2. port
+# Requirements:
+#   1. Parses the command line and gets two arguments that are IP address and port.
+#   2. Tries different passwords until it finds the correct one.
+#   3. Prints the password it found.
+
+
+def stage2():
+    parser = argparse.ArgumentParser("This program connects to an IP address and prints the response")
+    parser.add_argument("ip", help="IP address for connection")
+    parser.add_argument("port", help="Port for connection", type=int)
+    args = parser.parse_args()
+
 
 if __name__ == '__main__':
-    stage1()
+    # stage1()
+    stage2()
