@@ -1,6 +1,7 @@
 import argparse
 
 import connection
+import cracking
 
 # Stage 1/5: Establishing a connection
 # Input [command line]:
@@ -40,6 +41,8 @@ def stage2():
     parser.add_argument("ip", help="IP address for connection")
     parser.add_argument("port", help="Port for connection", type=int)
     args = parser.parse_args()
+    password = connection.get_password((args.ip, args.port), cracking.brute_force())
+    print(password)
 
 
 if __name__ == '__main__':
