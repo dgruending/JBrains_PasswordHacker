@@ -1,5 +1,7 @@
 import argparse
 
+import connection
+
 # Stage 1/5: Establishing a connection
 # Input [command line]:
 #   1. IP address
@@ -17,8 +19,11 @@ import argparse
 def stage1():
     parser = argparse.ArgumentParser("This program connects to an IP address and prints the response")
     parser.add_argument("ip", help="IP address for connection")
-    parser.add_argument("port", help="Port for connection")
+    parser.add_argument("port", help="Port for connection", type=int)
     parser.add_argument("message", help="Message for sending")
+    args = parser.parse_args()
+    response = connection.get_response((args.ip, args.port), args.message)
+    print(response)
 
 
 if __name__ == '__main__':
