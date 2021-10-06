@@ -17,3 +17,7 @@ def brute_force(alphabet=itertools.chain(string.ascii_lowercase, map(str, range(
     for i in range(1, sys.maxsize):
         for combination in itertools.product(alphabet, repeat=i):
             yield "".join(combination)
+
+
+def dictionary_attack():
+    pass

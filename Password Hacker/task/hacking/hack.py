@@ -26,6 +26,7 @@ def stage1():
     response = connection.get_response((args.ip, args.port), args.message)
     print(response)
 
+
 # Stage 2/5: Simple brute force
 # Input [command line]:
 #   1. IP address
@@ -45,6 +46,27 @@ def stage2():
     print(password)
 
 
+# Stage 3/5: Smarter, dictionary-based brute force
+# Input [command line]:
+#   1. IP address
+#   2. port
+# Requirements:
+#   1. Parses the command line and gets two arguments that are IP address and port.
+#   2. Finds the correct password using the list of typical passwords.
+#   3. Prints the password it found.
+
+
+def stage3():
+    parser = argparse.ArgumentParser("This program connects to an IP address and prints the response")
+    parser.add_argument("ip", help="IP address for connection")
+    parser.add_argument("port", help="Port for connection", type=int)
+    args = parser.parse_args()
+    password = connection.get_password((args.ip, args.port), cracking.dictionary_attack())
+    print(password)
+
+
 if __name__ == '__main__':
     # stage1()
-    stage2()
+    # stage2()
+    stage3()
+    
