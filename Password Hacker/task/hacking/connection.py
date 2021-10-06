@@ -42,6 +42,6 @@ def get_password(address, method, response_length=4096, success_message="Connect
                 return password
             elif response == fail_message:
                 continue
-            else:
+            elif response == "Too many attempts":
                 # something went wrong
                 return response
