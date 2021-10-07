@@ -23,8 +23,7 @@ def stage1():
     parser.add_argument("port", help="Port for connection", type=int)
     parser.add_argument("message", help="Message for sending")
     args = parser.parse_args()
-    response = connection.get_response((args.ip, args.port), args.message)
-    print(response)
+    print(connection.get_response((args.ip, args.port), args.message))
 
 
 # Stage 2/5: Simple brute force
@@ -42,8 +41,7 @@ def stage2():
     parser.add_argument("ip", help="IP address for connection")
     parser.add_argument("port", help="Port for connection", type=int)
     args = parser.parse_args()
-    password = connection.get_password((args.ip, args.port), cracking.brute_force())
-    print(password)
+    print(connection.get_password((args.ip, args.port), cracking.brute_force()))
 
 
 # Stage 3/5: Smarter, dictionary-based brute force
@@ -61,8 +59,7 @@ def stage3():
     parser.add_argument("ip", help="IP address for connection")
     parser.add_argument("port", help="Port for connection", type=int)
     args = parser.parse_args()
-    password = connection.get_password((args.ip, args.port), cracking.dictionary_attack("passwords.txt"))
-    print(password)
+    print(connection.get_password((args.ip, args.port), cracking.dictionary_attack("passwords.txt")))
 
 
 # Stage 4/5:  Catching exception
@@ -83,6 +80,7 @@ def stage4():
     parser.add_argument("ip", help="IP address for connection")
     parser.add_argument("port", help="Port for connection", type=int)
     args = parser.parse_args()
+    print(connection.get_password_json((args.ip, args.port)))
 
 
 if __name__ == '__main__':
