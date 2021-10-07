@@ -20,6 +20,12 @@ def brute_force(alphabet=itertools.chain(string.ascii_lowercase, map(str, range(
 
 
 def dictionary_attack(filename):
+    """
+    Generator for all provided passwords and their variations with case swaps.
+
+    :param filename: Text file with a password on each new line.
+    :return: Possible password
+    """
     with open(filename) as password_dictionary:
         for password in password_dictionary:
             password = password.strip()
