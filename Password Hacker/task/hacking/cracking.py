@@ -19,5 +19,27 @@ def brute_force(alphabet=itertools.chain(string.ascii_lowercase, map(str, range(
             yield "".join(combination)
 
 
-def dictionary_attack():
-    pass
+def dictionary_attack(filename):
+    with open(filename) as password_dictionary:
+        for password in password_dictionary:
+            password = password.strip()
+            yield password
+
+            if password.isdigit():
+                continue
+
+            # Generate all possible index combinations
+            indices = list(range(len(password)))
+            change_indices = []
+            for i in range(1, len(indices) + 1):
+                change_indices = itertools.chain(change_indices, itertools.combinations(indices, i))
+
+            # for every index combination, change the cases if no digit is present
+            for index_tuple in change_indices:
+                password_copy = list(password)
+                for index in index_tuple:
+                    if password_copy[index].isdigit():
+                        break
+                    else:
+                        password_copy[index] = password_copy[index].swapcase()
+                yield "".join(password_copy)

@@ -61,7 +61,7 @@ def stage3():
     parser.add_argument("ip", help="IP address for connection")
     parser.add_argument("port", help="Port for connection", type=int)
     args = parser.parse_args()
-    password = connection.get_password((args.ip, args.port), cracking.dictionary_attack())
+    password = connection.get_password((args.ip, args.port), cracking.dictionary_attack("passwords.txt"))
     print(password)
 
 
@@ -69,4 +69,3 @@ if __name__ == '__main__':
     # stage1()
     # stage2()
     stage3()
-    
