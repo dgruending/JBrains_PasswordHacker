@@ -3,6 +3,7 @@ import argparse
 import connection
 import cracking
 
+
 # Stage 1/5: Establishing a connection
 # Input [command line]:
 #   1. IP address
@@ -15,8 +16,6 @@ import cracking
 #   4. Receive the server’s response.
 #   5. Print the server’s response.
 #   6. Close the socket.
-
-
 def stage1():
     parser = argparse.ArgumentParser("This program connects to an IP address and prints the response")
     parser.add_argument("ip", help="IP address for connection")
@@ -34,8 +33,6 @@ def stage1():
 #   1. Parses the command line and gets two arguments that are IP address and port.
 #   2. Tries different passwords until it finds the correct one.
 #   3. Prints the password it found.
-
-
 def stage2():
     parser = argparse.ArgumentParser("This program connects to an IP address and prints the response")
     parser.add_argument("ip", help="IP address for connection")
@@ -52,8 +49,6 @@ def stage2():
 #   1. Parses the command line and gets two arguments that are IP address and port.
 #   2. Finds the correct password using the list of typical passwords.
 #   3. Prints the password it found.
-
-
 def stage3():
     parser = argparse.ArgumentParser("This program connects to an IP address and prints the response")
     parser.add_argument("ip", help="IP address for connection")
@@ -74,7 +69,6 @@ def stage3():
 #   5. Use the found login and the found letter to find the second letter of the password.
 #   6. Repeat until you receive the ‘success’ message.
 #   7. Print the combination of login and password in JSON format.
-
 def stage4():
     parser = argparse.ArgumentParser("This program connects to an IP address and prints the response")
     parser.add_argument("ip", help="IP address for connection")
@@ -83,8 +77,30 @@ def stage4():
     print(connection.get_password_json((args.ip, args.port)))
 
 
+# Stage 5/5:  Time-based vulnerability
+# Input [command line]:
+#   1. IP address
+#   2. port
+# Requirements:
+#   1. Parses the command line and gets two arguments that are IP address and port.
+#   2. Try all logins with an empty password.
+#   3. When you find the login, try out every possible password of length 1.
+#   4. When an exception occurs, the response will take a longer time.
+#   5. Use the found login and the found letter to find the second letter of the password.
+#   6. Repeat until you receive the ‘success’ message.
+#   7. Print the combination of login and password in JSON format.
+def stage5():
+    parser = argparse.ArgumentParser("This program connects to an IP address and prints the response")
+    parser.add_argument("ip", help="IP address for connection")
+    parser.add_argument("port", help="Port for connection", type=int)
+    args = parser.parse_args()
+    print(connection.get_password_json((args.ip, args.port)))
+
+
 if __name__ == '__main__':
+
     # stage1()
     # stage2()
     # stage3()
-    stage4()
+    # stage4()
+    stage5()

@@ -66,7 +66,7 @@ def _send_recv_json(client_socket, message, response_length):
     return json.loads(client_socket.recv(response_length).decode())
 
 
-def get_password_json(address, response_length=4096):
+def get_password_json(address, response_length=4096, timed=False):
     """
     Return the login information of the server by brute force methods.
 
@@ -75,6 +75,7 @@ def get_password_json(address, response_length=4096):
     "Exception happened during login", if the guessed password matches the prefix of the real password.
     :param address: Server address, Tuple (IP, port)
     :param response_length: Maximum number of bytes to be received.
+    :param timed: Whether to use time as a measurement for a correct guess. Needed for stage 5.
     :return: Login information encoded as JSON string.
     """
     with socket.socket() as client:
