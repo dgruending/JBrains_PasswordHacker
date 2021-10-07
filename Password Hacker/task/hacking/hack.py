@@ -94,7 +94,7 @@ def stage5():
     parser.add_argument("ip", help="IP address for connection")
     parser.add_argument("port", help="Port for connection", type=int)
     args = parser.parse_args()
-    print(connection.get_password_json((args.ip, args.port)))
+    print(connection.get_password_json((args.ip, args.port), timed=True))
 
 
 if __name__ == '__main__':

